@@ -46,10 +46,16 @@ fi
 echo "[6/8] Installing systemd service..."
 if [ -f "$APP_DIR/systemd/$SVC_NAME" ]; then
   cp "$APP_DIR/systemd/$SVC_NAME" "/etc/systemd/system/$SVC_NAME"
+elif [ -f "$APP_DIR/$SVC_NAME" ]; then
+  cp "$APP_DIR/$SVC_NAME" "/etc/systemd/system/$SVC_NAME"
 else
-  echo "ERROR: $APP_DIR/systemd/$SVC_NAME not found"
+  echo "ERROR: Service file not found. Expected:"
+  echo "  - $APP_DIR/systemd/$SVC_NAME"
+  echo "  - $APP_DIR/$SVC_NAME"
   exit 1
 fi
+
+
 
 echo "[7/8] Enabling service..."
 systemctl daemon-reload
