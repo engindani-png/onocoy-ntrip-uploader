@@ -1,0 +1,16 @@
+[Unit]
+Description=ONOCOY NTRIP v2 POST uploader
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/onocoy-push
+ExecStart=/opt/onocoy-push/venv/bin/python /opt/onocoy-push/onocoy_push.py --config /etc/onocoy-push/config.yml
+Restart=always
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
